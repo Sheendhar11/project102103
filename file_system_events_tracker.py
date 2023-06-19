@@ -26,28 +26,15 @@ dir_tree = {
 class FileMovementHandler(FileSystemEventHandler):
 
     def on_created(self, event):
+        print("HEY,{event.src_path} HAS BEEN CREATED!")
         name, extension=os.path.splitext(event.src_path)
         for key,value in dir_tree.items():
             if extension in value:
                 file_name=os.path.basename(event.src_path)
+    def on_deleted(self, event):
+         print("OOPS SOMEONE DELETED{event.src_path}!")
 
-                print("downloaded"+file_name)
-                path1= from_dir+'/'+file_name
-                path2=to_dir+'/'+key
-                path3=to_dir+'/'+key+file_name
-                if os.path.exists(path2): 
-                    print("Directory Exists...")
-                    print("Moving " + file_name + "....") 
-                    shutil.move(path1, path3) 
-                    time.sleep(1) 
-                else:
-                    print("Making Directory...") 
-                    os.makedirs(path2) 
-                    print("Moving " + file_name + "....") 
-                    shutil.move(path1, path3) 
-                    time.sleep(1)
-        print(event)
-        print(event.src_path)
+                
 
 
 # Initialize Event Handler Class
